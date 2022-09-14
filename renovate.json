@@ -1,34 +1,14 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-     "config": {
-         "regex": [
-           {
-             "packageFile": "noxfile.py",
-             "deps": [
-               {
-                 "depName": "base_image_id",
-                 "packageName": "[{\"Name\":\"owner-id\",\"Values\":[\"762873164855\"]},{\"Name\":\"name\",\"Values\":[\"ops-base-master-*\"]},{region: 'us-west-2'}]\r",
-                 "currentValue": "ami-04a726a285fbf6c8d",
-                 "currentDigest": "unknown\r",
-                 "datasource": "aws-machine-image",
-                 "replaceString": "# amiFilter=[{\"Name\":\"owner-id\",\"Values\":[\"762873164855\"]},{\"Name\":\"name\",\"Values\":[\"ops-base-master-*\"]},{region: 'us-west-2'}]\r\n# currentImageName=unknown\r\nbase_image_id = \"ami-04a726a285fbf6c8d\"\r",
-                 "depIndex": 0,
-                 "updates": [],
-                 "warnings": [
-                   {
-                     "topic": "base_image_id",
-                     "message": "Failed to look up dependency base_image_id"
-                   }
-                 ],
-                 "versioning": "aws-machine-image"
-               }
-             ],
-             "matchStrings": [
-               ".*amiFilter=(?<packageName>.*?)\n(.*currentImageName=(?<currentDigest>.*?)\n)?(.*\n)?.*?(?<depName>[a-zA-Z0-9-_:]*)[ ]*?[:|=][ ]*?[\"|']?(?<currentValue>ami-[a-z0-9]{17})[\"|']?.*"
-             ],
-             "datasourceTemplate": "aws-machine-image"
-           }
-         ]
-       }  ]
+  'regexManagers':
+    [
+      {
+        'fileMatch': ['.*'],
+        'matchStrings':
+          [
+            ".*amiFilter=(?<packageName>.*?)\n(.*currentImageName=(?<currentDigest>.*?)\n)?(.*\n)?.*?(?<depName>[a-zA-Z0-9-_:]*)[ ]*?[:|=][ ]*?[\"|']?(?<currentValue>ami-[a-z0-9]{17})[\"|']?.*",
+          ],
+        'datasourceTemplate': 'aws-machine-image',
+        'versioningTemplate': 'aws-machine-image',
+      },
+    ],
 }
